@@ -6,6 +6,7 @@ build
 **/build/
 **/target
 **/bin/
+**/.settings/**
 **/*.build.gradle.swp
 # Ignore Gradle GUI config
 gradle-app.setting
