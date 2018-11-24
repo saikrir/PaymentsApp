@@ -1,0 +1,24 @@
+{
+  "name": "payments-web",
+  "version": "1.0.0",
+  "description": "Payments WebAPI",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saikrir/PaymentsApp.git"
+  },
+  "keywords": [
+    "Payments",
+    "Personal",
+    "Payments"
+  ],
+  "author": "Sai Katterishetty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saikrir/PaymentsApp/issues"
+  },
+  "homepage": "https://github.com/saikrir/PaymentsApp#readme"
+}
