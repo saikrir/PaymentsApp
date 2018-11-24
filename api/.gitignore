@@ -4,6 +4,7 @@
 # Ignore Gradle build output directory
 build
 **/build/
+**/target
 **/bin/
 **/*.build.gradle.swp
 # Ignore Gradle GUI config
