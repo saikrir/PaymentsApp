@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>my.payments</groupId>
 	<artifactId>payments-api</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>api</name>
 	<url>http://maven.apache.org</url>
@@ -13,7 +13,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<app.name>LibertyProject</app.name>
+		<app.name>payments</app.name>
 		<testServerHttpPort>9080</testServerHttpPort>
 		<testServerHttpsPort>9443</testServerHttpsPort>
 		<warContext>${app.name}</warContext>
@@ -25,7 +25,7 @@
 			<dependency>
 				<groupId>io.openliberty.features</groupId>
 				<artifactId>features-bom</artifactId>
-				<version>RELEASE</version>
+				<version>LATEST</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -118,6 +118,7 @@
 
 	</dependencies>
 	<build>
+		<finalName>payments</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
