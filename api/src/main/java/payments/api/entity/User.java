@@ -14,10 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import lombok.Data;
-import lombok.Getter;
-
-@Data
 @Entity
 public class User implements Serializable {
 
@@ -28,7 +24,6 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter
 	private Long id;
 
 	@Column(name = "name", nullable = false)

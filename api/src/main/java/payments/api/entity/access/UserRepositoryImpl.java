@@ -2,8 +2,8 @@ package payments.api.entity.access;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ import payments.api.entity.User;
 
 public class UserRepositoryImpl implements UserRepository {
 
-	@Resource
+	@PersistenceContext(unitName = "MyPayments_TEST")
 	private EntityManager entityManager;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
