@@ -28,10 +28,10 @@ public class ProductPayment implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "id", insertable = false, updatable = false)
 	private Product product;
 
 	@Temporal(TemporalType.DATE)
@@ -39,7 +39,7 @@ public class ProductPayment implements Serializable {
 	private Date paymentDate;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "id", insertable = false, updatable = false)
 	private User paidByUser;
 
 	@Column(name = "payment_term", nullable = false)
@@ -88,7 +88,7 @@ public class ProductPayment implements Serializable {
 		this.amount = amount;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 

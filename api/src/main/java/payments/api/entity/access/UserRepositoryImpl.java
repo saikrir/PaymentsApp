@@ -2,6 +2,7 @@ package payments.api.entity.access;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,9 +11,10 @@ import org.slf4j.LoggerFactory;
 
 import payments.api.entity.User;
 
+@RequestScoped
 public class UserRepositoryImpl implements UserRepository {
 
-	@PersistenceContext(unitName = "MyPayments_TEST")
+	@PersistenceContext(name = "MyPayments_TEST")
 	private EntityManager entityManager;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -22,11 +24,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 		logger.info("Saving " + user.getName());
 
-		entityManager.getTransaction().begin();
-
 		entityManager.persist(user);
-
-		entityManager.getTransaction().commit();
 
 		return user;
 	}

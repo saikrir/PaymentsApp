@@ -13,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "User")
 public class User implements Serializable {
 
 	/**
@@ -24,7 +26,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -38,11 +40,11 @@ public class User implements Serializable {
 					@JoinColumn(name = "product_id", referencedColumnName = "id") })
 	private Set<Product> products = new HashSet<>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

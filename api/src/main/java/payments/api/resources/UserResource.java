@@ -40,6 +40,6 @@ public class UserResource {
 
 		userService.newUser(user);
 
-		return Response.ok().build();
+		return Response.ok(Status.ACCEPTED).build();
 	}
 }

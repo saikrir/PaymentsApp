@@ -4,23 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="MyPayments_TEST"
-		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>payments.api.entity.User</class>
-		<class>payments.api.entity.Product</class>
-		<class>payments.api.entity.ProductPayment</class>
-
-		<properties>
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQLDialect" />
-			<property name="javax.persistence.jdbc.driver"
-				value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://skrao-app-server/MyPayments_TEST" />
-			<property name="javax.persistence.jdbc.user" value="web_user" />
-			<property name="javax.persistence.jdbc.password"
-				value="tempid1" />
-		</properties>
-
+		transaction-type="JTA">
+		<jta-data-source>jdbc/MyPaymentsDS</jta-data-source>
 	</persistence-unit>
 </persistence>

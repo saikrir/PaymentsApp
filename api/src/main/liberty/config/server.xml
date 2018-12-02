@@ -1,13 +1,30 @@
 <server description="Payments REST API">
 
-  <featureManager>
-      <feature>jaxrs-2.1</feature>
-      <feature>jsonp-1.1</feature>
-      <feature>cdi-2.0</feature>
-  </featureManager>
+	<featureManager>
+		<feature>jaxrs-2.1</feature>
+		<feature>jsonp-1.1</feature>
+		<feature>cdi-2.0</feature>
+		<feature>jpa-2.2</feature>
+	</featureManager>
 
-  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
-      id="defaultHttpEndpoint" host="*" />
+	<!-- Declare the jar files for MySQL access through JDBC. -->
+	<library id="MySQLLib">
+		<fileset dir="${shared.resource.dir}/mysql" includes="*.jar" />
+	</library>
 
-  <webApplication location="payments.war" contextRoot="${app.context.root}"/>
+	<dataSource jndiName="jdbc/MyPaymentsDS"
+		transactional="false">
+		<jdbcDriver libraryRef="MySQLLib" />
+		<properties databaseName="MyPayments_TEST"
+			serverName="skrao-app-server" portNumber="3306" user="web_user"
+			password="tempid1" />
+	</dataSource>
+
+	<httpEndpoint httpPort="${default.http.port}"
+		httpsPort="${default.https.port}" id="defaultHttpEndpoint" host="*" />
+
+	<logging traceSpecification="${log.name}.*=${log.level}" />
+
+	<webApplication location="payments.war"
+		contextRoot="${app.context.root}" />
 </server>

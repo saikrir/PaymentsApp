@@ -39,12 +39,17 @@
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>cdi-2.0</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>io.openliberty.features</groupId>
+			<artifactId>cdi-2.0</artifactId>
+			<type>esa</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.openliberty.features</groupId>
+			<artifactId>jpa-2.2</artifactId>
+			<type>esa</type>
+		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -115,13 +120,13 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-		
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-core</artifactId>
-    <version>2.9.5</version>
-</dependency>
-		
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -141,25 +146,14 @@
 					<packagingExcludes>pom.xml</packagingExcludes>
 				</configuration>
 			</plugin>
-			<!-- Plugin to run unit tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
-				<executions>
-					<execution>
-						<phase>test</phase>
-						<id>default-test</id>
-						<configuration>
-							<excludes>
-								<exclude>**/it/**</exclude>
-							</excludes>
-							<reportsDirectory>${project.build.directory}/test-reports/unit</reportsDirectory>
-						</configuration>
-					</execution>
-				</executions>
+				<version>2.22.0</version>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
 			</plugin>
-			<!-- Enable liberty-maven plugin -->
 			<plugin>
 				<groupId>net.wasdev.wlp.maven.plugins</groupId>
 				<artifactId>liberty-maven-plugin</artifactId>
@@ -174,13 +168,11 @@
 					<configFile>src/main/liberty/config/server.xml</configFile>
 					<packageFile>${package.file}</packageFile>
 					<include>${packaging.type}</include>
-					<!-- tag::bootstrap[] -->
 					<bootstrapProperties>
 						<default.http.port>${testServerHttpPort}</default.http.port>
 						<default.https.port>${testServerHttpsPort}</default.https.port>
 						<app.context.root>${warContext}</app.context.root>
 					</bootstrapProperties>
-					<!-- end::bootstrap[] -->
 				</configuration>
 				<executions>
 					<execution>
@@ -224,6 +216,31 @@
 						</goals>
 						<configuration>
 							<outputDirectory>target/wlp-package</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-mysql-jar</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>mysql</groupId>
+									<artifactId>mysql-connector-java</artifactId>
+									<version>5.1.6</version>
+									<type>jar</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/mysql</outputDirectory>
+							<localRepositoryDirectory>${project.build.directory}/target/payments/WEB-INF/lib</localRepositoryDirectory>
 						</configuration>
 					</execution>
 				</executions>
