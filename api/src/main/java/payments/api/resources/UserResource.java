@@ -1,5 +1,7 @@
 package payments.api.resources;
 
+import static java.util.Objects.isNull;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,7 +30,7 @@ public class UserResource {
 
 		User user = userService.getUser(userId);
 
-		if (user != null) {
+		if (!isNull(user)) {
 			retVal = Response.ok(user).build();
 		}
 
@@ -37,9 +39,7 @@ public class UserResource {
 
 	@POST
 	public Response newUser(User user) {
-
 		userService.newUser(user);
-
 		return Response.ok(Status.ACCEPTED).build();
 	}
 }

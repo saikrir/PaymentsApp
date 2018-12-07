@@ -1,55 +1,41 @@
 package payments.api.entity.access;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import payments.api.entity.User;
 
 @RequestScoped
-public class UserRepositoryImpl implements UserRepository {
-
-	@PersistenceContext(name = "MyPayments_TEST")
-	private EntityManager entityManager;
-
-	private Logger logger = LoggerFactory.getLogger(getClass());
+public class UserRepositoryImpl extends AbstractRepository<User> implements UserRepository {
 
 	@Override
 	public User saveUser(User user) {
-
-		logger.info("Saving " + user.getName());
-
-		entityManager.persist(user);
-
-		return user;
+		return saveEntity(user);
 	}
 
 	@Override
 	public User retrieveUser(Integer id) {
-		return entityManager.find(User.class, id);
+		return findById(id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> searchUserByEmailID(String emailId) {
-		return entityManager.createQuery("SELECT u from User u WHERE c.emailId = :emailId")
-				.setParameter("emailId", emailId).getResultList();
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("emailId", emailId);
+		return searchByQuery(QUERY_BY_EMAIL, paramMap);
 	}
 
 	@Override
 	public User removeUser(Integer id) {
-		logger.info("Deleting User " + id);
+		return removeEntity(id);
+	}
 
-		User user = retrieveUser(id);
-
-		entityManager.remove(user);
-
-		return user;
+	@Override
+	protected Class<User> getEntityClass() {
+		return User.class;
 	}
 
 }
