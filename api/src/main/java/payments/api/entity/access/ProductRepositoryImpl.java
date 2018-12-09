@@ -36,4 +36,12 @@ public class ProductRepositoryImpl extends AbstractRepository<Product> implement
 		return Product.class;
 	}
 
+	@Override
+	public List<Product> getPendingPayments(Integer userId) {
+		String query = "SELECT p from User u join u.products p where p.paymentDueBy > :paymentDueBy and u.id = :userId";
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("paymentDueBy", 11);
+		paramMap.put("userId", userId);
+		return searchByQuery(query, paramMap);
+	}
 }

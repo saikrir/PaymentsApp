@@ -7,4 +7,6 @@ public interface UserService {
 	User getUser(String userId);
 
 	void newUser(User user);
+
+	User addProduct(String userId, String productId);
 }

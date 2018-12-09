@@ -15,4 +15,6 @@ public interface ProductRepository {
 	List<Product> searchByDueDate();
 
 	Product removeProduct(Integer id);
+
+	List<Product> getPendingPayments(Integer userId);
 }

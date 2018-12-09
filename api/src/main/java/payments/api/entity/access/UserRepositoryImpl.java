@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 
+import payments.api.entity.Product;
 import payments.api.entity.User;
 
 @RequestScoped
@@ -36,6 +37,15 @@ public class UserRepositoryImpl extends AbstractRepository<User> implements User
 	@Override
 	protected Class<User> getEntityClass() {
 		return User.class;
+	}
+
+	@Override
+	public User addProduct(Integer userId, Product product) {
+		User retrieveUser = retrieveUser(userId);
+		retrieveUser.getProducts().add(product);
+		getEntityManager().merge(retrieveUser);
+		getEntityManager().flush();
+		return retrieveUser;
 	}
 
 }

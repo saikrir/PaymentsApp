@@ -13,7 +13,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `payment_due_by` date NOT NULL,
+  `payment_due_by` int(2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

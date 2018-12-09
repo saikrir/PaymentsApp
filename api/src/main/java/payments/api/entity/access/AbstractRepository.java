@@ -19,6 +19,7 @@ public abstract class AbstractRepository<T> {
 
 	protected T saveEntity(T entity) {
 		entityManager.persist(entity);
+		entityManager.flush();
 		return entity;
 	}
 
@@ -34,6 +35,10 @@ public abstract class AbstractRepository<T> {
 			entityManager.remove(entity);
 		}
 		return entity;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
 	protected abstract Class<T> getEntityClass();

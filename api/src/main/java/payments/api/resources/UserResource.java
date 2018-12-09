@@ -3,8 +3,8 @@ package payments.api.resources;
 import static java.util.Objects.isNull;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -21,7 +21,6 @@ public class UserResource {
 	@Inject
 	UserService userService;
 
-	@GET
 	@Path("{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUser(@PathParam("userId") String userId) {
@@ -41,5 +40,13 @@ public class UserResource {
 	public Response newUser(User user) {
 		userService.newUser(user);
 		return Response.ok(Status.ACCEPTED).build();
+	}
+
+	@PUT
+	@Path("{userId}/products/{productId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addProduct(@PathParam("userId") String userId, @PathParam("productId") String productId) {
+		User addProduct = userService.addProduct(userId, productId);
+		return Response.status(Status.ACCEPTED).entity(addProduct).build();
 	}
 }

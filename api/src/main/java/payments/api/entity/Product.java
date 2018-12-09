@@ -1,7 +1,6 @@
 package payments.api.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Product")
@@ -23,16 +20,15 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "payment_due_by", nullable = false)
-	private Date paymentDueBy;
+	@Column(name = "payment_due_by")
+	private Integer paymentDueBy;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -44,11 +40,11 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-	public Date getPaymentDueBy() {
+	public Integer getPaymentDueBy() {
 		return paymentDueBy;
 	}
 
-	public void setPaymentDueBy(Date paymentDueBy) {
+	public void setPaymentDueBy(Integer paymentDueBy) {
 		this.paymentDueBy = paymentDueBy;
 	}
 
