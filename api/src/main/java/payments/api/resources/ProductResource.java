@@ -40,15 +40,4 @@ public class ProductResource {
 	public Response saveProduct(Product product) {
 		return Response.ok(productService.saveProduct(product)).status(Status.CREATED).build();
 	}
-
-	@GET
-	@Path("pending/{userId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUser(@PathParam("userId") String userId) {
-
-		Response retVal = Response.ok(productService.getProductsPendingPayment(userId)).build();
-
-		return retVal;
-	}
-
 }
