@@ -3,6 +3,7 @@ package payments.api.resources;
 import static java.util.Objects.isNull;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -15,6 +16,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import payments.api.entity.User;
+import payments.api.resources.mapper.PaymentsMapper;
+import payments.api.ro.IdRo;
+import payments.api.ro.UserRO;
 import payments.api.service.ProductService;
 import payments.api.service.UserService;
 
@@ -26,6 +30,9 @@ public class UserResource {
 
 	@Inject
 	ProductService productService;
+
+	@Inject
+	PaymentsMapper paymentsMapper;
 
 	@Path("{userId}")
 	@GET
@@ -40,9 +47,11 @@ public class UserResource {
 	}
 
 	@POST
-	public Response newUser(User user) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response newUser(@Valid UserRO userRO) {
+		User user = paymentsMapper.mapToUserEntity(userRO);
 		userService.newUser(user);
-		return Response.ok(Status.ACCEPTED).build();
+		return Response.ok(Status.ACCEPTED).entity(new IdRo(user.getId())).build();
 	}
 
 	@PUT
