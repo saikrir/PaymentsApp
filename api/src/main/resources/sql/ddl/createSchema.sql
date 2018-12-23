@@ -34,7 +34,7 @@ CREATE TABLE `User_Product_Payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `payment_date` date NOT NULL,
-  `paid_by_user` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `payment_term` varchar(45) NOT NULL,
   `amount` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),

@@ -1,10 +1,10 @@
 package payments.api.entity.access;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import javax.persistence.Query;
+
+import payments.api.entity.Product;
 import payments.api.entity.ProductPayment;
 
 /**
@@ -25,10 +25,10 @@ public class ProductPaymentRepositoryImpl extends AbstractRepository implements 
     }
 
     @Override
-    public List<ProductPayment> findPayments(Date after) {
-        Map<String, Date> queryParam = new HashMap<>();
-        queryParam.put("date", after);
-        return searchByQuery(QUERY_FIND_PAYMENTS, queryParam);
+    public List<Product> getProductsPendingPayments(Integer userId) {
+        Query pendingPaymentsQuery = getEntityManager().createNativeQuery(QUERY_FIND_PAYMENTS, Product.class);
+        pendingPaymentsQuery.setParameter(1, userId);
+        return pendingPaymentsQuery.getResultList();
     }
 
     @Override

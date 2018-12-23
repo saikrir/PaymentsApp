@@ -7,12 +7,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -39,6 +41,9 @@ public class User implements Serializable {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "product_id", referencedColumnName = "id") })
 	private Set<Product> products = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<ProductPayment> payments;
 
 	public Integer getId() {
 		return id;
@@ -70,6 +75,14 @@ public class User implements Serializable {
 
 	public void setProducts(Set<Product> products) {
 		this.products = products;
+	}
+
+	public Set<ProductPayment> getPayments() {
+		return this.payments;
+	}
+
+	public void setPayments(Set<ProductPayment> payments) {
+		this.payments = payments;
 	}
 
 }

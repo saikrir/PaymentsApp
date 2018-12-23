@@ -12,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,17 +32,17 @@ public class ProductPayment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id", insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id")
 	private Product product;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "payment_date", nullable = false)
 	private Date paymentDate;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id", insertable = false, updatable = false)
-	private User paidByUser;
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	@Column(name = "payment_term", nullable = false)
 	private String paymentTerm;
@@ -64,12 +66,12 @@ public class ProductPayment implements Serializable {
 		this.paymentDate = paymentDate;
 	}
 
-	public User getPaidByUser() {
-		return paidByUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPaidByUser(User paidByUser) {
-		this.paidByUser = paidByUser;
+	public void setUser(User paidByUser) {
+		this.user = paidByUser;
 	}
 
 	public String getPaymentTerm() {
