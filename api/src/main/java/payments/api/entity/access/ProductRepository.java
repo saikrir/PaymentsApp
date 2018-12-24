@@ -16,5 +16,4 @@ public interface ProductRepository {
 
 	Product removeProduct(Integer id);
 
-	List<Product> getPendingPayments(Integer userId);
 }

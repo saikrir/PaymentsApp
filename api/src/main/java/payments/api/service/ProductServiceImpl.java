@@ -1,7 +1,5 @@
 package payments.api.service;
 
-import java.util.List;
-
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductRepository productRepo;
 
 	@Override
-	public Product getProduct(String productId) {
-		return productRepo.retrievProduct(Integer.valueOf(productId));
+	public Product getProduct(Integer productId) {
+		return productRepo.retrievProduct(productId);
 	}
 
 	@Override
@@ -28,8 +26,4 @@ public class ProductServiceImpl implements ProductService {
 		return productRepo.saveProduct(product);
 	}
 
-	@Override
-	public List<Product> getProductsPendingPayment(String userId) {
-		return productRepo.getPendingPayments(Integer.valueOf(userId));
-	}
 }

@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
 	ProductRepository productRepo;
 
 	@Override
-	public User getUser(String userId) {
-		return userRepository.retrieveUser(Integer.parseInt(userId));
+	public User getUser(Integer userId) {
+		return userRepository.retrieveUser(userId);
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User addProduct(String userId, String productId) {
-		Product product = productRepo.retrievProduct(Integer.valueOf(productId));
-		return userRepository.addProduct(Integer.valueOf(userId), product);
+	public User addProduct(Integer userId, Integer productId) {
+		Product product = productRepo.retrievProduct(productId);
+		return userRepository.addProduct(userId, product);
 	}
 }

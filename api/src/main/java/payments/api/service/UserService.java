@@ -4,9 +4,9 @@ import payments.api.entity.User;
 
 public interface UserService {
 
-	User getUser(String userId);
+	User getUser(Integer userId);
 
 	void newUser(User user);
 
-	User addProduct(String userId, String productId);
+	User addProduct(Integer userId, Integer productId);
 }
