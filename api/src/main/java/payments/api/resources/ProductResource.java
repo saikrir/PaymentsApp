@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 
 import payments.api.entity.Product;
 import payments.api.resources.mapper.PaymentsMapper;
+import payments.api.ro.IdRO;
 import payments.api.ro.ProductRO;
 import payments.api.service.ProductService;
 
@@ -36,7 +37,7 @@ public class ProductResource {
 		if (Objects.isNull(product)) {
 			return Response.status(Status.NOT_FOUND).build();
 		} else {
-			return Response.ok(product).build();
+			return Response.ok(paymentsMapper.mapToProductRO(product)).build();
 		}
 	}
 
@@ -44,7 +45,7 @@ public class ProductResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response saveProduct(@Valid ProductRO productRO) {
-		return Response.ok(productService.saveProduct(paymentsMapper.mapToProduct(productRO))).status(Status.CREATED)
-				.build();
+		Product savedProduct = productService.saveProduct(paymentsMapper.mapToProduct(productRO));
+		return Response.ok(new IdRO(savedProduct.getId())).status(Status.CREATED).build();
 	}
 }

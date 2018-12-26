@@ -1,6 +1,7 @@
 package payments.api.ro;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.validation.constraints.Min;
 
@@ -18,4 +19,8 @@ public class ProductPaymentRO {
 	private Integer productId;
 	@Min(value = 0)
 	private BigDecimal amount;
+
+	private String productName;
+
+	private Date paymentDate;
 }

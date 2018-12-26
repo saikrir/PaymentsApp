@@ -1,6 +1,8 @@
 package payments.api.resources;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -17,8 +19,10 @@ import javax.ws.rs.core.Response.Status;
 import payments.api.entity.Product;
 import payments.api.entity.ProductPayment;
 import payments.api.entity.User;
+import payments.api.resources.mapper.PaymentsMapper;
 import payments.api.ro.IdRO;
 import payments.api.ro.ProductPaymentRO;
+import payments.api.ro.ProductRO;
 import payments.api.service.ProductPaymentService;
 import payments.api.service.ProductService;
 import payments.api.service.UserService;
@@ -38,11 +42,21 @@ public class PaymentResource {
 	@Inject
 	UserService userService;
 
+	@Inject
+	PaymentsMapper paymentsMapper;
+
 	@GET
 	@Path("/users/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getPendingPayments(@PathParam("id") String userId) {
-		return Response.ok(productPaymentService.getPendingPayments(userId)).build();
+
+		List<Product> products = productPaymentService.getPendingPayments(userId);
+
+		List<ProductRO> productROs = products.stream()
+										.map(paymentsMapper::mapToProductRO)
+										.collect(Collectors.toList());
+
+		return Response.ok(productROs).build();
 	}
 
 	@POST

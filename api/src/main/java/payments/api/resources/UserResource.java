@@ -41,7 +41,7 @@ public class UserResource {
 		Response retVal = Response.status(Status.NOT_FOUND).build();
 		User user = userService.getUser(userId);
 		if (!isNull(user)) {
-			retVal = Response.ok(user).build();
+			retVal = Response.ok(paymentsMapper.mapToUserRO(user)).build();
 		}
 		return retVal;
 	}
@@ -58,8 +58,8 @@ public class UserResource {
 	@Path("{userId}/products/{productId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addProduct(@PathParam("userId") Integer userId, @PathParam("productId") Integer productId) {
-		User addProduct = userService.addProduct(userId, productId);
-		return Response.status(Status.ACCEPTED).entity(addProduct).build();
+		User updatedUser = userService.addProduct(userId, productId);
+		return Response.status(Status.ACCEPTED).entity(paymentsMapper.mapToUserRO(updatedUser)).build();
 	}
 
 }
