@@ -26,7 +26,7 @@ public abstract class AbstractRepository<T> {
 	protected List<T> searchByQuery(String jpaQueryStr, Map<String, ?> paramValueMap) {
 		Query jpaQuery = entityManager.createQuery(jpaQueryStr);
 		paramValueMap.entrySet().stream().forEach(entry -> jpaQuery.setParameter(entry.getKey(), entry.getValue()));
-		return jpaQuery.getResultList();
+		return jpaQuery.<T>getResultList();
 	}
 
 	protected T removeEntity(Integer primaryKey) {

@@ -10,9 +10,10 @@ import payments.api.entity.ProductPayment;
 /**
  * ProductPaymentRepositoryImpl
  */
-public class ProductPaymentRepositoryImpl extends AbstractRepository implements ProductPaymentRepository {
+@SuppressWarnings("unchecked")
+public class ProductPaymentRepositoryImpl extends AbstractRepository<ProductPayment> implements ProductPaymentRepository {
 
-    @Override
+	@Override
     public ProductPayment savePayment(ProductPayment productPayment) {
         saveEntity(productPayment);
         getEntityManager().flush();
