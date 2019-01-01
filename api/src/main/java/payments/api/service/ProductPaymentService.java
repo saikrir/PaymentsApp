@@ -11,7 +11,7 @@ import payments.api.entity.User;
  * PoductPaymentService
  */
 public interface ProductPaymentService {
-    List<Product> getPendingPayments(String userId);
+    List<Product> getPendingPayments(Integer userId);
 
     ProductPayment makePayment(User user, Product product, BigDecimal amount);
 }

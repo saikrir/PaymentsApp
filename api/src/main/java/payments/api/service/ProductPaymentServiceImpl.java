@@ -26,19 +26,19 @@ public class ProductPaymentServiceImpl implements ProductPaymentService {
     ProductPaymentRepository productRepository;
 
     @Override
-    public List<Product> getPendingPayments(String userId) {
-        return productRepository.getProductsPendingPayments(Integer.valueOf(userId));
+    public List<Product> getPendingPayments(Integer userId) {
+	return productRepository.getProductsPendingPayments(userId);
     }
 
     public ProductPayment makePayment(User user, Product product, BigDecimal amount) {
-        ProductPayment payment = new ProductPayment();
-        payment.setAmount(amount);
-        payment.setUser(user);
-        payment.setPaymentDate(new Date());
-        payment.setPaymentTerm("MONTHLY");
-        payment.setProduct(product);
-        productRepository.savePayment(payment);
-        return payment;
+	ProductPayment payment = new ProductPayment();
+	payment.setAmount(amount);
+	payment.setUser(user);
+	payment.setPaymentDate(new Date());
+	payment.setPaymentTerm("MONTHLY");
+	payment.setProduct(product);
+	productRepository.savePayment(payment);
+	return payment;
     }
 
 }

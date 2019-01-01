@@ -13,14 +13,14 @@ import lombok.Data;
 
 @Data
 public class ProductPaymentRO {
-	@Min(value = 0)
-	private Integer userId;
-	@Min(value = 0)
-	private Integer productId;
-	@Min(value = 0)
-	private BigDecimal amount;
+    @Min(value = 0, message = "UserId has invalid value")
+    private Integer userId;
+    @Min(value = 0, message = "ProductId has invalid value")
+    private Integer productId;
+    @Min(value = 0, message = "Amount has to be a valid non zero value")
+    private BigDecimal amount;
 
-	private String productName;
+    private String productName;
 
-	private Date paymentDate;
+    private Date paymentDate;
 }

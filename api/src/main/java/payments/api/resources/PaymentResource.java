@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -33,49 +34,47 @@ import payments.api.service.UserService;
 @Path("payments")
 public class PaymentResource {
 
-	@Inject
-	ProductPaymentService productPaymentService;
+    @Inject
+    ProductPaymentService productPaymentService;
 
-	@Inject
-	ProductService productService;
+    @Inject
+    ProductService productService;
 
-	@Inject
-	UserService userService;
+    @Inject
+    UserService userService;
 
-	@Inject
-	PaymentsMapper paymentsMapper;
+    @Inject
+    PaymentsMapper paymentsMapper;
 
-	@GET
-	@Path("/users/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getPendingPayments(@PathParam("id") String userId) {
+    @GET
+    @Path("/users/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPendingPayments(@PathParam("id") @Min(value = 0) Integer userId) {
 
-		List<Product> products = productPaymentService.getPendingPayments(userId);
+	List<Product> products = productPaymentService.getPendingPayments(userId);
 
-		List<ProductRO> productROs = products.stream()
-										.map(paymentsMapper::mapToProductRO)
-										.collect(Collectors.toList());
+	List<ProductRO> productROs = products.stream().map(paymentsMapper::mapToProductRO).collect(Collectors.toList());
 
-		return Response.ok(productROs).build();
-	}
+	return Response.ok(productROs).build();
+    }
 
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response newPayment(@Valid ProductPaymentRO paymentRO) {
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response newPayment(@Valid ProductPaymentRO paymentRO) {
 
-		Integer userId = paymentRO.getUserId();
-		
-		Integer productId = paymentRO.getProductId();
+	Integer userId = paymentRO.getUserId();
 
-		User user = userService.getUser(userId);
-		
-		Product product = productService.getProduct(productId);
+	Integer productId = paymentRO.getProductId();
 
-		BigDecimal amount = paymentRO.getAmount();
+	User user = userService.getUser(userId);
 
-		ProductPayment payment = productPaymentService.makePayment(user, product, amount);
+	Product product = productService.getProduct(productId);
 
-		return Response.status(Status.ACCEPTED).entity(new IdRO(payment.getId())).build();
-	}
+	BigDecimal amount = paymentRO.getAmount();
+
+	ProductPayment payment = productPaymentService.makePayment(user, product, amount);
+
+	return Response.status(Status.ACCEPTED).entity(new IdRO(payment.getId())).build();
+    }
 }
