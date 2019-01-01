@@ -65,9 +65,11 @@ public class PaymentResource {
 	public Response newPayment(@Valid ProductPaymentRO paymentRO) {
 
 		Integer userId = paymentRO.getUserId();
+		
 		Integer productId = paymentRO.getProductId();
 
 		User user = userService.getUser(userId);
+		
 		Product product = productService.getProduct(productId);
 
 		BigDecimal amount = paymentRO.getAmount();
