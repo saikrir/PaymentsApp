@@ -1,0 +1,12 @@
+version: "3"
+services:
+    mariadb:
+        ports:
+            - '3306:3306'
+        container_name: api-db
+        restart: always
+        volumes:
+            - '/home/skrao/Dev/Apps/MyPayments/api/src/main/resources/sql/ddl:/docker-entrypoint-initdb.d/'
+        environment:
+            - 'MYSQL_ROOT_PASSWORD=#onadoor'
+        image: 'mariadb:10.1.37'
