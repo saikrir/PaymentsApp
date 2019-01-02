@@ -16,10 +16,11 @@
 	<dataSource jndiName="jdbc/MyPaymentsDS"
 		transactional="false">
 		<jdbcDriver libraryRef="MySQLLib" />
-		<properties databaseName="MyPayments_TEST"
-			serverName="skrao-app-server" portNumber="3306" user="web_user"
-			password="tempid1" />
+		<properties databaseName="${db.name}"
+			serverName="${db.server}" portNumber="${db.port}" user="${db.user}"
+			password="${db.password}" />
 	</dataSource>
+	
 
 	<httpEndpoint httpPort="${default.http.port}"
 		httpsPort="${default.https.port}" id="defaultHttpEndpoint" host="*" />

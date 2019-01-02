@@ -36,7 +36,7 @@ public class AuthInterceptor implements ContainerRequestFilter {
     @PostConstruct
     public void init() {
 	String clientId = appConfig.getConfigValue("app.okta.client.id");
-	String issuerUrl = appConfig.getConfigValue("app.okta.auth.url");
+	String issuerUrl = appConfig.getConfigValue("app.okta.issuer.url");
 	try {
 	    jwtVerifier = new JwtHelper().setClientId(clientId).setIssuerUrl(issuerUrl).build();
 	    logger.info("JWT verifier constructed");
@@ -46,24 +46,26 @@ public class AuthInterceptor implements ContainerRequestFilter {
     }
 
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext) {
 
 	Response unauthorizedResponse = Response.status(Status.UNAUTHORIZED).build();
 
 	String authHeader = requestContext.getHeaderString("authorization");
+
 	if (authHeader == null) {
 	    requestContext.abortWith(unauthorizedResponse);
 	    return;
 	}
 
 	String accessToken = authHeader.substring(authHeader.indexOf("Bearer ") + 7);
+
 	try {
 	    Jwt jwt = jwtVerifier.decodeAccessToken(accessToken);
 	    logger.info("Hello, " + jwt.getClaims().get("sub"));
 	} catch (JoseException joseException) {
+	    joseException.printStackTrace();
 	    logger.error("Failed to decode access token ");
 	    requestContext.abortWith(unauthorizedResponse);
-	    return;
 	}
     }
 

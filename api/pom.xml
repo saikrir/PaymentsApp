@@ -186,6 +186,11 @@
 						<default.http.port>${testServerHttpPort}</default.http.port>
 						<default.https.port>${testServerHttpsPort}</default.https.port>
 						<app.context.root>${warContext}</app.context.root>
+						<db.name>${env.DB_NAME}</db.name>
+						<db.server>${env.DB_SERVER}</db.server>
+						<db.port>${env.DB_PORT}</db.port>
+						<db.user>${env.DB_USER}</db.user>
+						<db.password>${env.DB_PASSWORD}</db.password>
 					</bootstrapProperties>
 					<jvmOptions>
 						<param>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7777</param>
