@@ -14,31 +14,32 @@ public abstract class AbstractRepository<T> {
     private EntityManager entityManager;
 
     protected T findById(Integer primaryKey) {
-	return (T) entityManager.find(getEntityClass(), primaryKey);
+        return (T) entityManager.find(getEntityClass(), primaryKey);
     }
 
     protected T saveEntity(T entity) {
-	entityManager.persist(entity);
-	entityManager.flush();
-	return entity;
+        entityManager.persist(entity);
+        entityManager.flush();
+        return entity;
     }
 
+    @SuppressWarnings("unchecked")
     protected List<T> searchByQuery(String jpaQueryStr, Map<String, ?> paramValueMap) {
-	Query jpaQuery = entityManager.createQuery(jpaQueryStr);
-	paramValueMap.entrySet().stream().forEach(entry -> jpaQuery.setParameter(entry.getKey(), entry.getValue()));
-	return jpaQuery.<T>getResultList();
+        Query jpaQuery = entityManager.createQuery(jpaQueryStr);
+        paramValueMap.entrySet().stream().forEach(entry -> jpaQuery.setParameter(entry.getKey(), entry.getValue()));
+        return jpaQuery.getResultList();
     }
 
     protected T removeEntity(Integer primaryKey) {
-	T entity = findById(primaryKey);
-	if (!Objects.isNull(entity)) {
-	    entityManager.remove(entity);
-	}
-	return entity;
+        T entity = findById(primaryKey);
+        if (!Objects.isNull(entity)) {
+            entityManager.remove(entity);
+        }
+        return entity;
     }
 
     public EntityManager getEntityManager() {
-	return entityManager;
+        return entityManager;
     }
 
     protected abstract Class<T> getEntityClass();

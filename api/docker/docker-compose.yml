@@ -6,7 +6,8 @@ services:
         container_name: api-db
         restart: always
         volumes:
-            - '/home/skrao/Dev/Apps/MyPayments/api/src/main/resources/sql/ddl:/docker-entrypoint-initdb.d/'
+            - ./db-ddl:/docker-entrypoint-initdb.d/
+            - ./db-volume:/var/lib/mysql
         environment:
             - 'MYSQL_ROOT_PASSWORD=#onadoor'
         image: 'mariadb:10.1.37'
