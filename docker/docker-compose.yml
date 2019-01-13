@@ -21,7 +21,7 @@ services:
             - 9080:9080
             - 9443:9443
         container_name: rest-api
-            restart: always
+        restart: always
         environment:
             - DB_NAME: MyPayments_TEST
             - DB_SERVER: api-db
