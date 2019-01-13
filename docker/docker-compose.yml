@@ -13,13 +13,15 @@ services:
             - 'MYSQL_ROOT_PASSWORD=#onadoor'
     api:
         build: 
-            context: ./restapi
+            context: ../
+            dockerfile: ./docker/restapi/Dockerfile
         image: paymentsapp-api:1.0
         depends_on:
             - api-db
         ports:
             - 9080:9080
             - 9443:9443
+            - 7777:7777
         container_name: rest-api
         restart: always
         environment:
