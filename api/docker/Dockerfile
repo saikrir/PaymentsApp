@@ -6,6 +6,6 @@ WORKDIR /app
 
 COPY src/ src/
 
-RUN 'maven clean install -DskipTests=true && mvn liberty:start-server'
+ENTRYPOINT [ "mvn", "clean", "install", "liberty:start-server", "-DskipTests=true" ]
 
 EXPOSE 9080
