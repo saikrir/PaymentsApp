@@ -1,6 +1,6 @@
 version: "3"
 services:
-    mariadb:
+    api-db:
         ports:
             - 3306:3306
         container_name: api-db
