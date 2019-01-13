@@ -14,7 +14,7 @@ services:
     api:
         build: 
             context: ./restapi
-            image: paymentsapp-api:1.0
+        image: paymentsapp-api:1.0
         depends_on:
             - api-db
         ports:
