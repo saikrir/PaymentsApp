@@ -2,7 +2,7 @@ FROM maven:3-jdk-8-alpine
 
 WORKDIR /app
 
-COPY ../api/ .
+COPY api/ .
 
 ENTRYPOINT [ "mvn", "clean", "install", "liberty:run"]
 
