@@ -23,8 +23,8 @@ services:
         container_name: rest-api
         restart: always
         environment:
-            - DB_NAME: MyPayments_TEST
-            - DB_SERVER: api-db
-            - DB_PORT: 3306
-            - DB_USER: web_user
-            - DB_PASSWORD: tempid1
+            - 'DB_NAME=MyPayments_TEST'
+            - 'DB_SERVER=api-db'
+            - 'DB_PORT=3306'
+            - 'DB_USER=web_user'
+            - 'DB_PASSWORD=tempid1'
