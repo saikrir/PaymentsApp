@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY src/ src/
 
+COPY pom.xml pom.xml
+
 ENTRYPOINT [ "mvn", "clean", "install", "liberty:start-server", "-DskipTests=true" ]
 
 EXPOSE 9080
