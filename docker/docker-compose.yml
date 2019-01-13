@@ -5,12 +5,12 @@ services:
             - 3306:3306
         container_name: api-db
         restart: always
+        image: mariadb:10.1.37
         volumes:
             - ./db/ddl:/docker-entrypoint-initdb.d/
             - ./db/volume:/var/lib/mysql
         environment:
-            - MYSQL_ROOT_PASSWORD: '#onadoor'
-        image: 'mariadb:10.1.37'
+            - 'MYSQL_ROOT_PASSWORD=#onadoor'
     api:
         build: 
             context: ./restapi
