@@ -4,10 +4,8 @@ ENV DB_NAME="MyPayments_TEST" DB_SERVER="skrao-app-server" DB_PORT="3306" DB_USE
 
 WORKDIR /app
 
-COPY src/ src/
+COPY api/ .
 
-COPY pom.xml pom.xml
+ENTRYPOINT [ "mvn", "clean", "install", "liberty:run"]
 
-ENTRYPOINT [ "mvn", "clean", "install", "liberty:start-server", "-DskipTests=true" ]
-
-EXPOSE 9080
+EXPOSE 9080 9443
