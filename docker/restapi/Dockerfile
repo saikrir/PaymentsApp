@@ -1,9 +1,7 @@
-FROM maven:3-jdk-8-alpine
+FROM open-liberty:javaee8
 
-WORKDIR /app
+WORKDIR /config
 
-COPY api/ .
-
-ENTRYPOINT [ "mvn", "clean", "install", "liberty:run"]
+COPY ./api/target/payments.war dropins/
 
 EXPOSE 9080 9443

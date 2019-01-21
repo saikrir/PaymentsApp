@@ -6,8 +6,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import payments.api.entity.Product;
 import payments.api.entity.ProductPayment;
@@ -17,9 +18,10 @@ import payments.api.entity.access.ProductPaymentRepository;
 /**
  * ProductPaymentServiceImpl
  */
+
 @Stateless
 @Local
-@Transactional
+@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class ProductPaymentServiceImpl implements ProductPaymentService {
 
     @Inject
@@ -30,6 +32,7 @@ public class ProductPaymentServiceImpl implements ProductPaymentService {
 	return productRepository.getProductsPendingPayments(userId);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ProductPayment makePayment(User user, Product product, BigDecimal amount) {
 	ProductPayment payment = new ProductPayment();
 	payment.setAmount(amount);
