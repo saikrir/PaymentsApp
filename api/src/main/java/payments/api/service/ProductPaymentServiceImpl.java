@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import payments.api.entity.Product;
 import payments.api.entity.ProductPayment;
@@ -21,7 +22,7 @@ import payments.api.entity.access.ProductPaymentRepository;
 
 @Stateless
 @Local
-@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+@Transactional
 public class ProductPaymentServiceImpl implements ProductPaymentService {
 
     @Inject

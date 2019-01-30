@@ -23,7 +23,8 @@ public class ExceptionInterceptor implements ExceptionMapper<Exception> {
     public Response toResponse(Exception exception) {
 	logger.error("An error has been handled ", exception);
 	String message = StringUtils.defaultString(exception.getMessage(), "Generic Excpeption has occured");
-	return Response.status(Status.INTERNAL_SERVER_ERROR).entity(new ErrorRO(message)).build();
+	return Response.status(Status.INTERNAL_SERVER_ERROR).entity(new ErrorRO(message))
+		.type(MediaType.APPLICATION_JSON).build();
     }
 
 }

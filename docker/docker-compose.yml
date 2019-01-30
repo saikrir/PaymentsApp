@@ -6,7 +6,6 @@ services:
         container_name: api-db
         restart: always
         image: mariadb:10.1.37
-        user: mysql
         volumes:
             - ./db/ddl:/docker-entrypoint-initdb.d/
             - ./db/volume:/var/lib/mysql
@@ -30,4 +29,5 @@ services:
             - 'DB_SERVER=api-db'
             - 'DB_PORT=3306'
             - 'DB_USER=web_user'
-            - 'DB_PASSWORD=tempid1'    
+            - 'DB_PASSWORD=tempid1'
+            - 'KEYSTORE_REQUIRED=false'

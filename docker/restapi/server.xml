@@ -1,0 +1,36 @@
+<server description="Payments REST API">
+
+	<featureManager>
+		<feature>jaxrs-2.1</feature>
+		<feature>jsonp-1.1</feature>
+		<feature>cdi-2.0</feature>
+		<feature>jpa-2.2</feature>
+		<feature>beanValidation-2.0</feature>
+	</featureManager>
+	
+
+	<keyStore id="defaultKeyStore" location="cacerts" password="changeit" type="JKS"/>
+	
+
+	<!-- Declare the jar files for MySQL access through JDBC. -->
+	<library id="MySQLLib">
+		<fileset dir="/opt/ol/wlp/output/defaultServer/resources/mysql" includes="*.jar" />
+	</library>
+
+	<dataSource jndiName="jdbc/MyPaymentsDS"
+		transactional="false">
+		<jdbcDriver libraryRef="MySQLLib" />
+		<properties databaseName="MyPayments_TEST"
+			serverName="api-db" portNumber="3306" user="web_user"
+			password="tempid1" />
+	</dataSource>
+	
+
+	<httpEndpoint httpPort="9080"
+		httpsPort="9443" id="defaultHttpEndpoint" host="*" />
+
+	<logging traceSpecification="${log.name}.*=${log.level}" />
+
+	<applicationManager autoExpand="true"/>	
+		
+</server>
