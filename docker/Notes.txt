@@ -1,0 +1,8 @@
+https://dev-755060.oktapreview.com/oauth2/default
+https://dev-755060-admin.oktapreview.com/oauth2/token
+https://dev-755060.oktapreview.com/oauth2/default/v1/authorize?client_id=0oaip90hmuBiLfAGi0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fimplicit%2Fcallback&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=g5ly497e8ps
+
+
+
+docker-compose -f ./docker/docker-compose.yml build --no-cache
+sudo rm -rf /home/skrao/Dev/Apps/MyPayments/docker/db/volume/ && mkdir /home/skrao/Dev/Apps/MyPayments/docker/db/volume/

@@ -10,6 +10,8 @@ WORKDIR /config
 
 COPY ./api/target/payments.war dropins/
 
+COPY ./docker/restapi/server.env .
+
 COPY ./docker/restapi/server.xml .
 
 EXPOSE 9080 9443

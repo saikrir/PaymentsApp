@@ -9,7 +9,7 @@
 	</featureManager>
 	
 
-	<keyStore id="defaultKeyStore" location="cacerts" password="changeit" type="JKS"/>
+	<keyStore id="defaultKeyStore" location="cacerts" password="{env.KEYSTORE_PASS}" type="JKS"/>
 	
 
 	<!-- Declare the jar files for MySQL access through JDBC. -->
@@ -20,9 +20,9 @@
 	<dataSource jndiName="jdbc/MyPaymentsDS"
 		transactional="false">
 		<jdbcDriver libraryRef="MySQLLib" />
-		<properties databaseName="MyPayments_TEST"
-			serverName="api-db" portNumber="3306" user="web_user"
-			password="tempid1" />
+		<properties databaseName="${env.DB_NAME}"
+			serverName="${env.DB_SERVER}" portNumber="${env.DB_PORT}" user="${env.DB_USER}"
+			password="${env.DB_PASSWORD}" />
 	</dataSource>
 	
 
